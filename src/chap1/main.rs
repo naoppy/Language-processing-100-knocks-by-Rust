@@ -20,6 +20,7 @@ fn main() {
     print_set();
     println!("{}", generate_template_text(12, "気温", 22.4));
     println!("{}", encrypt("Hello, World"));
+    println!("{}", typoglycemia("I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."));
 }
 
 fn reverse(text: &str) -> String {
