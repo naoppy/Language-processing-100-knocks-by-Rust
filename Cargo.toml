@@ -8,5 +8,5 @@ edition = "2018"
 rand = "0.6.4"
 
 [[bin]]
-name = "chap1-00"
-path = "src/chap1/main.rs"
+name = "chap2"
+path = "src/chap2/main.rs"

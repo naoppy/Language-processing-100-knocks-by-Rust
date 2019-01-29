@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Give Me a Chocolate!!</title>
+    <style>
+        .hoge {
+            display: inline-block;
+            width: 80%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://rawcdn.githack.com/Airmime/minstyle.io/2201279f4605ef5a83bd4f1745499ec5d32a59b5/css/minstyle.io.css">
+</head>
+<body>
+    <div class="container">
+                
+            
+        <form action="" method="POST">
+            <div>
+            code:
+                <textarea name="code" id="" cols="30" rows="10" placeholder=""></textarea>
+            </div>
+            <div>
+                filename: <input type="text" name="name" required/>
+                <input type="submit" value="Save" name="save">
+            </div>
+        </form>
+
+        <ul class="ms-list ms-boxed">
+                        <li>
+                <a href="codes/a" class="hoge">a</a>
+                <a href="?execute&file=/var/www/html/codes/a" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/aas" class="hoge">aas</a>
+                <a href="?execute&file=/var/www/html/codes/aas" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/s" class="hoge">s</a>
+                <a href="?execute&file=/var/www/html/codes/s" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/1" class="hoge">1</a>
+                <a href="?execute&file=/var/www/html/codes/1" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/rfgthytrerg" class="hoge">rfgthytrerg</a>
+                <a href="?execute&file=/var/www/html/codes/rfgthytrerg" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/aaaaa" class="hoge">aaaaa</a>
+                <a href="?execute&file=/var/www/html/codes/aaaaa" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/krue" class="hoge">krue</a>
+                <a href="?execute&file=/var/www/html/codes/krue" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/hellow" class="hoge">hellow</a>
+                <a href="?execute&file=/var/www/html/codes/hellow" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/hogehogehoge" class="hoge">hogehogehoge</a>
+                <a href="?execute&file=/var/www/html/codes/hogehogehoge" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                        <li>
+                <a href="codes/aaaatest" class="hoge">aaaatest</a>
+                <a href="?execute&file=/var/www/html/codes/aaaatest" class="ms-btn ms-border ms-blue  no-margin">Run</a></li>
+                    </ul>
+
+        <p>
+            <a href="?source">view source</a>        
+        </p>
+    </div>
+</body>
+</html>
