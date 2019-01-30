@@ -47,3 +47,32 @@ fn get_col(source: &Path, out: &Path, column_number: usize) -> io::Result<()> {
     });
     Ok(())
 }
+
+//13
+fn merge_columns(source1: &Path, source2: &Path) -> io::Result<String> {
+    let source1 = File::open(source1)?;
+    let source2 = File::open(source2)?;
+    let br1 = BufReader::new(source1);
+    let br2 = BufReader::new(source2);
+    Ok(br1.lines().zip(br2.lines()).map(|(col1, col2)| {
+        col1.unwrap() + "\t" + &col2.unwrap() + "\n"
+    }).collect())
+}
+
+//14
+fn heads(path: &Path, n: usize) -> io::Result<String> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    br.lines().take(n).map(|line| line.and_then(|line| Ok(line + "\n"))).collect()
+}
+
+//15
+fn tails(path: &Path, n: usize) -> io::Result<String> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    let lines = br.lines().collect::<Vec<_>>();
+    let n_lines = lines.into_iter().rev().take(n).collect::<Vec<_>>();
+    n_lines.into_iter().rev().map(|line| line.and_then(|line| Ok(line + "\n"))).collect()
+}
+
+//16
