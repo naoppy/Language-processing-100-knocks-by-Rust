@@ -8,6 +8,7 @@ fn main() {
 }
 
 // 10
+/// `path`で指定されたファイルの行数を返す
 fn count_lines(path: &Path) -> io::Result<usize> {
     let file = File::open(path)?;
     let br = BufReader::new(file);
@@ -17,6 +18,7 @@ fn count_lines(path: &Path) -> io::Result<usize> {
 }
 
 // 11
+/// `path`で指定されたファイルのタブを`tab_width`の数のスペースに置換する
 fn tab_to_space(path: &Path, tab_width: usize) -> io::Result<String> {
     let file = File::open(path)?;
     let br = BufReader::new(file);
@@ -28,6 +30,7 @@ fn tab_to_space(path: &Path, tab_width: usize) -> io::Result<String> {
 }
 
 //12
+/// 
 fn get_col(source: &Path, out: &Path, column_number: usize) -> io::Result<()> {
     let source = File::open(source)?;
     let out = OpenOptions::new().write(true).create(true).truncate(true).open(out)?;
@@ -49,6 +52,7 @@ fn get_col(source: &Path, out: &Path, column_number: usize) -> io::Result<()> {
 }
 
 //13
+/// `source1`と`source2`を行ごとにタブをデミリタとして連結する
 fn merge_columns(source1: &Path, source2: &Path) -> io::Result<String> {
     let source1 = File::open(source1)?;
     let source2 = File::open(source2)?;
@@ -60,6 +64,7 @@ fn merge_columns(source1: &Path, source2: &Path) -> io::Result<String> {
 }
 
 //14
+/// `path`で指定されたファイルの先頭から`n`行を返す
 fn heads(path: &Path, n: usize) -> io::Result<String> {
     let file = File::open(path)?;
     let br = BufReader::new(file);
@@ -67,6 +72,7 @@ fn heads(path: &Path, n: usize) -> io::Result<String> {
 }
 
 //15
+/// `path`で指定されたファイルの末尾から`n`行を返す
 fn tails(path: &Path, n: usize) -> io::Result<String> {
     let file = File::open(path)?;
     let br = BufReader::new(file);
@@ -76,3 +82,10 @@ fn tails(path: &Path, n: usize) -> io::Result<String> {
 }
 
 //16
+/// `path`で指定されたファイルを行単位で`n`分割したベクタを返します
+fn split_file(path: &Path, n: usize) -> io::Result<Vec<String>> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    let lines = br.lines().collect::<io::Result<Vec<_>>>();
+    lines.and_then(|lines| Ok(lines.chunks(n).map(|chunk| chunk.join("\n")).collect()))
+}
