@@ -2,6 +2,7 @@ use std::path::Path;
 use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufRead, BufWriter, ErrorKind, Error, Write};
 use std::io;
+use std::collections::{HashSet, HashMap};
 
 fn main() {
     println!("{} lines", count_lines(Path::new("hightemp.txt")).unwrap());
@@ -30,7 +31,7 @@ fn tab_to_space(path: &Path, tab_width: usize) -> io::Result<String> {
 }
 
 //12
-/// 
+/// `source`の各行について、空白で分けられた`column_number`目の列を`out`に書き出す
 fn get_col(source: &Path, out: &Path, column_number: usize) -> io::Result<()> {
     let source = File::open(source)?;
     let out = OpenOptions::new().write(true).create(true).truncate(true).open(out)?;
@@ -88,4 +89,57 @@ fn split_file(path: &Path, n: usize) -> io::Result<Vec<String>> {
     let br = BufReader::new(file);
     let lines = br.lines().collect::<io::Result<Vec<_>>>();
     lines.and_then(|lines| Ok(lines.chunks(n).map(|chunk| chunk.join("\n")).collect()))
+}
+
+//17
+/// 
+fn get_column_differences(path: &Path, n: usize) -> io::Result<HashSet<String>> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    let mut result = HashSet::new();
+    br.lines().map(|line|
+        line.and_then(|line| {
+            line.split_whitespace().map(|word| word.to_string()).nth(n)
+            .ok_or(Error::new(ErrorKind::NotFound, format!("the column {} is not found.", n)))
+        })
+    ).for_each(|line| match line {
+        Ok(line) => { result.insert(line.to_string()); },
+        Err(e) => eprintln!("{}", e)
+    });
+    Ok(result)
+}
+
+//18
+/// 
+fn sort_by_column(path: &Path, n: usize) -> io::Result<Vec<String>> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    let lines = br.lines().collect::<io::Result<Vec<_>>>();
+    lines.and_then(|mut lines| {
+        lines.sort_by(|a, b| a.split_whitespace().nth(n).cmp(&b.split_whitespace().nth(n)));
+        Ok(lines)
+    })
+}
+
+//19
+/// 
+fn sort_by_frequency(path: &Path) -> io::Result<Vec<String>> {
+    let file = File::open(path)?;
+    let br = BufReader::new(file);
+    let lines = br.lines().collect::<io::Result<Vec<_>>>();
+    let mut counter: HashMap<String, usize> = HashMap::new();
+    lines.and_then(|lines|
+        Ok(lines.into_iter().for_each(|line| {
+            let key = line.split_whitespace().next().unwrap_or("");
+            if counter.contains_key(key) {
+                *counter.get_mut(key).unwrap() += 1
+            } else {
+                counter.insert(key.to_string(), 1);
+            }
+        }))
+    ).and_then(|_| {
+        let mut tmp = counter.into_iter().collect::<Vec<_>>();
+        tmp.sort_by(|a, b| b.1.cmp(&a.1));
+        Ok(tmp.into_iter().map(|(k, _)| k).collect())
+    })
 }
